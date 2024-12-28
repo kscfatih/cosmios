@@ -22,7 +22,7 @@ class Blog(models.Model):
     updated = models.DateTimeField(auto_now=True, null=True)
 
     def __str__(self):
-        return f"{self.title} - {self.created} - {self.updated}"
+        return f"{self.title}"
     
     class Meta:
-        verbose_name="Blog"
+        verbose_name="Yazılar"

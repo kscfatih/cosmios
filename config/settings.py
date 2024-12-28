@@ -98,7 +98,7 @@ LANGUAGE_CODE = 'tr'
 
 TIME_ZONE = 'Europe/Istanbul'
 
-USE_TZ = True
+USE_TZ = False
 USE_I18N = True
 
 
