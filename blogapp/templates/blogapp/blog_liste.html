@@ -1,0 +1,37 @@
+{% extends "blogapp/base.html" %}
+
+{% block title %}Blog Listesi{% endblock title %}
+
+{% block content %}
+<ul>
+    {% for blog in bloglar %}
+        {%if blog.is_active%}
+            <li> {{blog.title}} </li>
+        {%endif%}
+      
+    {%endfor%}
+</ul>
+<hr>
+<ul>
+    {%for blog  in bloglarDemet%}
+         {% if blog.1 %}
+         <li> {{blog.0}}</li>
+         {% endif %}    
+    {%endfor%}
+</ul>
+<hr>
+<h3>Aktif</h3>
+<ul>
+    {% for blog in aktif %}
+        <li> {{blog}} </li>
+    {% endfor %}
+</ul>
+<h3>Pasif</h3>
+<ul>
+    {% for blog in pasif %}
+        <li>{{blog}}</li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}
+   
