@@ -10,6 +10,54 @@
             <li> {{blog.blog_population}} </li>
             <li> {{blog.created}} </li>
         </ul>
+        <hr>
     {% endfor %}
-   
+    <hr><hr>
+    <h3>Aktif Bloglar</h3>
+    {% for blog in active_blogs %}
+        <ul>
+            <li> {{blog.title}} </li>
+            <li> {{blog.content}} </li>
+            <li> {{blog.blog_population}} </li>
+            <li> {{blog.created}} </li>
+        </ul>
+        <hr>
+    {% endfor %}
+   <hr><hr>
+   <h3>Kişisel gelişim blogları</h3>
+   {% for blog in kisisel_gelisim_blogs %}
+        <ul>
+            <li> {{blog.title}} </li>
+            <li> {{blog.content}} </li>
+            <li> {{blog.blog_population}} </li>
+            <li> {{blog.created}} </li>
+        </ul>
+        <hr>
+    {% endfor %}
+    <hr><hr>
+    {% if spesifik_blog %}
+        <h3>Spesifik Blog</h3>
+        <ul>
+            <li> {{spesifik_blog.title}} </li>
+            <li> {{spesifik_blog.content}} </li>
+            <li> {{spesifik_blog.blog_population}} </li>
+            <li> {{spesifik_blog.created}} </li>
+        </ul>
+    {% endif %}
+   <hr><hr>
+   <h3>Yeni Blog</h3>
+   <ul>
+        <li> {{new_blog.title}} </li>
+        <li> {{new_blog.content}} </li>
+        <li> {{new_blog.blog_population}} </li>
+        <li> {{new_blog.created}} </li>
+    </ul>
+    <hr><hr>
+    <h3> Getir veya Oluştur Blog Nesnesi {{created_status}} </h3>
+    <ul>
+        <li> {{blogInstance.title}} </li>
+        <li> {{blogInstance.content}} </li>
+        <li> {{blogInstance.blog_population}} </li>
+        <li> {{blogInstance.created}} </li>
+    </ul>
 {% endblock content %}

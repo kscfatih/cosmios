@@ -52,5 +52,37 @@ def blog_liste(request):
 
 def blog_islemleri(request):
     all_blogs = Blog.objects.all()
-    context =  {'all_blogs':all_blogs}
+    active_blogs = Blog.objects.filter(is_active=True) # dönen değer her zaman iterable
+    kisisel_gelisim_blogs = Blog.objects.exclude(blog_population='ders')
+    try:
+        spesifik_blog = Blog.objects.get(id=3) # 1 tane obje döner her durumda böyle. 2 obje olursa hata verir
+    except:
+        spesifik_blog = None
+    
+    if Blog.objects.filter(content='C Öğreniyorum içeriği').exists():
+        new_blog = Blog.objects.get(content='C Öğreniyorum içeriği')
+    else:
+        new_blog = Blog.objects.create(
+                title='C Öğreniyorum', 
+                content='C Öğreniyorum içeriği',
+                is_active=True,
+                blog_population='ders'
+            )
+    
+    blogInstance, created_status = Blog.objects.get_or_create(
+                                        title='C++ Öğreniyorum ',
+                                        content='Merhaba dünya ',
+                                        defaults={
+                                            'is_active':True,
+                                            'blog_population':'ders'
+                                        })
+
+    context = {'all_blogs':all_blogs,
+                'active_blogs':active_blogs,
+                'kisisel_gelisim_blogs':kisisel_gelisim_blogs,
+                'spesifik_blog':spesifik_blog,
+                'new_blog':new_blog,
+                'blogInstance':blogInstance,
+                'created_status':created_status
+            }
     return render(request, 'blogapp/blog_islemleri.html', context)

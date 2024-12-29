@@ -8,6 +8,7 @@ admin.site.site_header='Blog Projesi'
 @admin.register(Blog)
 class BlogAdmin(admin.ModelAdmin):
     list_display = [
+        'id',
         'title',
         'is_active',
         'blog_population',
