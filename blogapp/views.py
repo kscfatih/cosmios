@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse
-
+from .models import Blog
 # Path'ler üzerinden yönlendirdiğimiz kontrol ediciler/viewlar
 
 def index(request):
@@ -48,3 +48,9 @@ def blog_liste(request):
         'bloglarDemet':bloglarDemet,
         'pasif':pasif_bloglar,
         'aktif':aktif_bloglar})
+
+
+def blog_islemleri(request):
+    all_blogs = Blog.objects.all()
+    context =  {'all_blogs':all_blogs}
+    return render(request, 'blogapp/blog_islemleri.html', context)

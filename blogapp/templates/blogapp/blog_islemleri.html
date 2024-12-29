@@ -1,0 +1,15 @@
+{% extends "blogapp/base.html" %}
+{% block title %}Blog İşlemleri{% endblock title %}
+
+{% block content %}
+    <h2>Tüm Bloglar</h2>
+    {% for blog in all_blogs %}
+        <ul>
+            <li> {{blog.title}} </li>
+            <li> {{blog.content}} </li>
+            <li> {{blog.blog_population}} </li>
+            <li> {{blog.created}} </li>
+        </ul>
+    {% endfor %}
+   
+{% endblock content %}
