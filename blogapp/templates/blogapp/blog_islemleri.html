@@ -60,4 +60,40 @@
         <li> {{blogInstance.blog_population}} </li>
         <li> {{blogInstance.created}} </li>
     </ul>
+    <hr><hr>
+    <h3> Güncelle veya Oluştur Blog Nesnesi {{created_status2}} </h3>
+    <ul>
+        <li> {{blogInstance2.title}} </li>
+        <li> {{blogInstance2.content}} </li>
+        <li> {{blogInstance2.blog_population}} </li>
+        <li> {{blogInstance2.created}} </li>
+    </ul>
+    <hr><hr>
+    <h3>Tarih bazlı sıralanmış bloglar</h3>
+    {% for blog in tarih_bazli_blog %}
+        <ul>
+            <li> {{blog.title}} </li>
+            <li> {{blog.content}} </li>
+            <li> {{blog.blog_population}} </li>
+            <li> {{blog.created}} </li>
+        </ul>
+        <hr>
+    {% endfor %}
+    <hr><hr>
+    <h3>Title bazlı sıralanmış bloglar</h3>
+    {% for blog in title_bazli_blog %}
+        <ul>
+            <li> {{blog.title}} </li>
+            <li> {{blog.content}} </li>
+            <li> {{blog.blog_population}} </li>
+            <li> {{blog.created}} </li>
+        </ul>
+        <hr>
+    {% endfor %}
+    <hr><hr>
+    <h3>Toplam Blog Sayısı</h3>
+    <p> {{toplam_blog}} </p>
+    <hr><hr>
+    <h3> Toplam Ders Türünde Blog Sayısı </h3>
+    <p> {{toplam_ders}} </p>
 {% endblock content %}

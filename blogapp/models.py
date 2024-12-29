@@ -20,9 +20,23 @@ class Blog(models.Model):
     )
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True, null=True)
-
+    category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, related_name="blogs")
     def __str__(self):
         return f"{self.title}"
     
     class Meta:
         verbose_name="Yazılar"
+
+# Blog & Category
+# One to One  models.OneToOneField
+# Many To One ForeignKey
+# Many To Many 
+# xcategory.blogs = x kategorisine ait bloglar verilir (related_name)
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+    is_active = models.BooleanField(default=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name

@@ -1,9 +1,11 @@
 from django.contrib import admin
-from .models import Blog
+from .models import Blog, Category
 # Buradan admin panelin içerisine modellerimizi ekliyoruz
 admin.site.site_title='Blog Projesi'
 admin.site.site_header='Blog Projesi'
 
+
+admin.site.register(Category)
 
 @admin.register(Blog)
 class BlogAdmin(admin.ModelAdmin):
@@ -12,6 +14,7 @@ class BlogAdmin(admin.ModelAdmin):
         'title',
         'is_active',
         'blog_population',
+        'category',
         'created',
         'updated'
     ]
@@ -36,7 +39,7 @@ class BlogAdmin(admin.ModelAdmin):
         (
             'Diğer Bilgiler',
             {
-                'fields':['is_active','blog_population']
+                'fields':['is_active','blog_population','category']
             }
         )
     ]

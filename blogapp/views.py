@@ -70,12 +70,27 @@ def blog_islemleri(request):
             )
     
     blogInstance, created_status = Blog.objects.get_or_create(
-                                        title='C++ Öğreniyorum ',
-                                        content='Merhaba dünya ',
+                                        title='C Öğreniyorum',
+                                        content='Merhaba dünya',
                                         defaults={
                                             'is_active':True,
                                             'blog_population':'ders'
                                         })
+    
+    blogInstance2, created_status2 = Blog.objects.update_or_create(
+                                                title='Python Öğreniyorum',
+                                                defaults={
+                                                    'content':'Python öğreniyorum',
+                                                    'is_active':False,
+                                                    'blog_population':'kisisel_gelisim'
+                                                }
+                                            )
+    
+    tarih_bazli_blog = Blog.objects.order_by('-created')
+    title_bazli_blog = Blog.objects.order_by('title')
+
+    toplam_blog = Blog.objects.all().count()
+    toplam_ders = Blog.objects.filter(blog_population='ders').count()
 
     context = {'all_blogs':all_blogs,
                 'active_blogs':active_blogs,
@@ -83,6 +98,12 @@ def blog_islemleri(request):
                 'spesifik_blog':spesifik_blog,
                 'new_blog':new_blog,
                 'blogInstance':blogInstance,
-                'created_status':created_status
+                'created_status':created_status,
+                'blogInstance2':blogInstance2,
+                'created_status2':created_status2,
+                'tarih_bazli_blog':tarih_bazli_blog,
+                'title_bazli_blog':title_bazli_blog,
+                'toplam_blog':toplam_blog,
+                'toplam_ders':toplam_ders
             }
     return render(request, 'blogapp/blog_islemleri.html', context)
