@@ -2,6 +2,15 @@
 {% load static %}
 {% block title %}Blog Listesi{% endblock title %}
 
+{% block css %}
+<style>
+  a{
+    text-decoration: none;
+    color:black;
+  }
+</style>
+{% endblock css %}
+
 {% block content %}
 
   <h3>Bloglar</h3>
@@ -12,7 +21,7 @@
   <div class="col-md-3">
     <ul class="list-group">
       {% for category in categories  %}
-      <li class="list-group-item"> <a href="{%url 'blog_category' category.id%}">{{category.name}} </a> </li>
+      <li class="list-group-item {% if category.id == categoryId %}active{% endif %} "> <a href="{%url 'blog_category' category.id%}">{{category.name}} </a> </li>
       {% endfor %}
       
       

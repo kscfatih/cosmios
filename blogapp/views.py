@@ -22,7 +22,7 @@ def blog_category(request, categoryId):
     categories = Category.objects.filter(is_active=True)
     category = Category.objects.get(id=categoryId)
     blogs = Blog.objects.filter(category=category)
-    return render(request, 'blogapp/blog_liste.html', {'blogs':blogs,'categories':categories})
+    return render(request, 'blogapp/blog_liste.html', {'blogs':blogs,'categories':categories,'categoryId':categoryId})
 
 def blog_islemleri(request):
     all_blogs = Blog.objects.all()
