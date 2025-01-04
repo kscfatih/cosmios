@@ -14,7 +14,6 @@ class BlogAdmin(admin.ModelAdmin):
         'title',
         'is_active',
         'blog_population',
-        'category',
         'created',
         'updated'
     ]
@@ -33,7 +32,7 @@ class BlogAdmin(admin.ModelAdmin):
         (
             'Başlık ve İçerik Bilgileri',
             {
-                'fields':['title','content']
+                'fields':['title','content','image']
             }
         ),
         (

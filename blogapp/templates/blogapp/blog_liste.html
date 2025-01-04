@@ -1,37 +1,52 @@
 {% extends "blogapp/base.html" %}
-
+{% load static %}
 {% block title %}Blog Listesi{% endblock title %}
 
 {% block content %}
-<ul>
-    {% for blog in bloglar %}
-        {%if blog.is_active%}
-            <li> {{blog.title}} </li>
-        {%endif%}
+
+  <h3>Bloglar</h3>
+
+
+<div class="row mt-5">
+  <h5>Kategoriler</h5>
+  <div class="col-md-3">
+    <ul class="list-group">
+      {% for category in categories  %}
+      <li class="list-group-item"> <a href="{%url 'blog_category' category.id%}">{{category.name}} </a> </li>
+      {% endfor %}
       
-    {%endfor%}
-</ul>
-<hr>
-<ul>
-    {%for blog  in bloglarDemet%}
-         {% if blog.1 %}
-         <li> {{blog.0}}</li>
-         {% endif %}    
-    {%endfor%}
-</ul>
-<hr>
-<h3>Aktif</h3>
-<ul>
-    {% for blog in aktif %}
-        <li> {{blog}} </li>
-    {% endfor %}
-</ul>
-<h3>Pasif</h3>
-<ul>
-    {% for blog in pasif %}
-        <li>{{blog}}</li>
-    {% endfor %}
-</ul>
+      
+    </ul>
+  </div>
+  <div class="col-md-9">
+    <div class="row">
+      {% for blog in blogs %}
+      <div class="col-md-4 mb-2">
+        <div class="card text-left">
+          {% if blog.image %}
+            <img class="card-img-top" src="{{blog.image.url}}" height="250px" alt="">
+          {% else %}
+            <img class="card-img-top" src="{%static 'img/default.png'%}" height="250px" alt="">
+          {% endif %}
+          
+          <div class="card-body">
+           <a href="{%url 'blog_detay' blog.id%}"><h4 class="card-title"> {{blog.title}} </h4></a> 
+            <p class="card-text"> {{blog.content}} </p>
+          </div>
+          <div class="card-footer">
+            <small> {{blog.created}} </small>
+            <small> {{blog.author.user.username}} - {{blog.author.user.first_name}} {{blog.author.user.last_name}}   </small>
+          </div>
+        </div>
+      </div>
+     
+      {% endfor %}
+    </div>
+   
+  </div>
+  
+   
+</div>
 
 {% endblock content %}
    

@@ -1,14 +1,27 @@
 {% extends "blogapp/base.html" %}
-
+{% load static %}
 {% block title %} Blog Detay {% endblock title %}
 
 {% block content %}
-    Blog detayı {{id}}
-    <p>
-        {{title}}
-    </p>
-    <p>
-        {{content}}
-    </p>
+    <h3> Detay </h3>
+    <div class="row justify-content-center">
+        <div class="card text-left">
+
+            {% if blog.image %}
+            <img class="card-img-top" src="{{blog.image.url}}" height="250px" alt="">
+          {% else %}
+            <img class="card-img-top" src="{%static 'img/default.png'%}" height="250px" alt="">
+          {% endif %}
+          
+            <div class="card-body">
+             <h4 class="card-title"> {{blog.title}} </h4>
+              <p class="card-text"> {{blog.content}} </p>
+            </div>
+            <div class="card-footer">
+              <small> {{blog.created}} </small>
+              <small> {{blog.author.user.username}} - {{blog.author.user.first_name}} {{blog.author.user.last_name}}   </small>
+            </div>
+          </div>
+    </div>
 {% endblock content %}
     
