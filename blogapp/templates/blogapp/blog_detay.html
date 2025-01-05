@@ -8,7 +8,7 @@
         <div class="card text-left">
 
             {% if blog.image %}
-            <img class="card-img-top" src="{{blog.image.url}}" height="250px" alt="">
+            <img class="card-img-top img-fluid" src="{{blog.image.url}}" height="250px" alt="">
           {% else %}
             <img class="card-img-top" src="{%static 'img/default.png'%}" height="250px" alt="">
           {% endif %}

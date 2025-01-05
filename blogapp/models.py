@@ -30,7 +30,6 @@ class Category(BaseModel):
     def __str__(self):
         return self.name
 
-# Buraya veri tabanı tabloları / modeller oluşturulacak
 class Blog(BaseModel):
     title = models.CharField(
         max_length=100, 

@@ -21,6 +21,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts',
     'blogapp',
     'django.contrib.admin', # admin arayüzü
     'django.contrib.auth', # user işlemleri ve kimlik doğrulama işlemleri
