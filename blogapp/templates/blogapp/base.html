@@ -11,6 +11,14 @@
 </head>
 <body>
     {%include 'blogapp/navbar.html'%}
+    {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}" role="alert">
+                {{ message }}
+              </div>
+            {% endfor %}
+      
+    {% endif %}
     <div class="container">
         <div class="mt-5">
             {% block content %}{% endblock content %}

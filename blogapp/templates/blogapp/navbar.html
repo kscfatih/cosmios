@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
     <div class="container">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#">Blog App</a>
         <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
             aria-expanded="false" aria-label="Toggle navigation"></button>
         <div class="collapse navbar-collapse" id="collapsibleNavId">
@@ -12,6 +12,17 @@
                     <a class="nav-link" href="{%url 'home'%}">Ana Sayfa</a>
                 </li>
                 
+                {% if user.is_authenticated %}
+                <li>
+                    <a href="{%url 'logout'%}" class="nav-link">Çıkış Yap</a>
+                </li>
+                {% else %}
+                <li>
+                    <a href="{%url 'login'%}" class="nav-link">Giriş Yap</a>
+                </li>
+                {% endif %}
+               
+               
             </ul>
         </div>
     </div>
