@@ -1,1 +1,46 @@
 {% extends "blogapp/base.html" %}
+
+{% block title %}Kayıt Ol{% endblock title %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="card col-md-4 mb-5">
+        <div class="card-header">
+                <h4 class="card-title" >Kayıt Ol</h4>
+        </div>
+      
+        <div class="card-body">
+            <form method="POST">
+                {%csrf_token%}
+                <div class="mb-3">
+                    <label for="username" class="form-label"> Kullanıcı adı: </label>
+                    <input type="text" placeholder='kullanıcı adı' class="form-control" name='username'  >
+                </div>
+                <div class="mb-3">
+                    <label for="isim" class="form-label"> İsim: </label>
+                    <input type="text" class="form-control" name='isim'  >
+                </div>
+                <div class="mb-3">
+                    <label for="soyisim" class="form-label"> Soyisim: </label>
+                    <input type="text" class="form-control" name='soyisim'  >
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label"> E-mail: </label>
+                    <input type="text" class="form-control" name='email'  >
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label"> Şifre: </label>
+                    <input type="password" class="form-control" name='password'  >
+                </div>
+                <div class="mb-3">
+                    <label for="repassword" class="form-label"> Şifreyi Tekrar Girin: </label>
+                    <input type="password" class="form-control" name='repassword'  >
+                </div>
+                <button type='submit' class="btn btn-primary">Gönder</button>
+
+            </form>
+            
+        </div>
+    </div>
+</div>
+{% endblock content %}

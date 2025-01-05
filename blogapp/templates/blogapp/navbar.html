@@ -13,12 +13,24 @@
                 </li>
                 
                 {% if user.is_authenticated %}
+
+                {% if user.is_staff %}
                 <li>
-                    <a href="{%url 'logout'%}" class="nav-link">Çıkış Yap</a>
+                    <a href="{%url 'kategori_ekle'%}" class="nav-link">Kategori Ekle </a>
+                </li>
+                <li>
+                    <a href="{%url 'blog_ekle'%}" class="nav-link">Blog Ekle </a>
+                </li>
+                {% endif %}
+                <li>
+                    <a href="{%url 'logout'%}" class="nav-link">Çıkış Yap </a>
                 </li>
                 {% else %}
                 <li>
                     <a href="{%url 'login'%}" class="nav-link">Giriş Yap</a>
+                </li>
+                <li>
+                    <a href="{%url 'register'%}" class="nav-link">Kayıt Ol</a>
                 </li>
                 {% endif %}
                

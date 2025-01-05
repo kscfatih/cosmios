@@ -1,5 +1,10 @@
-from django.shortcuts import render, HttpResponse
-from .models import Blog, Category
+from django.shortcuts import render, HttpResponse, redirect
+from .models import *
+from django.views import View
+from .forms import *
+from django.contrib import messages
+
+
 # Path'ler üzerinden yönlendirdiğimiz kontrol ediciler/viewlar
 
 def index(request):
@@ -81,3 +86,48 @@ def blog_islemleri(request):
                 'toplam_ders':toplam_ders
             }
     return render(request, 'blogapp/blog_islemleri.html', context)
+
+
+class KategoriEkle(View):
+    def get(self, request):
+        form = CategoryForm()
+        return render(request, 'blogapp/kategori_ekle.html',{'form':form})
+    
+    def post(self, request):
+        form = CategoryForm(request.POST)
+
+        if form.is_valid():
+            name = form.cleaned_data.get('name')
+            is_active = form.cleaned_data.get('is_active')
+            category, created = Category.objects.get_or_create(name=name, defaults={
+                'is_active':is_active
+            })
+            if created:
+                messages.success(request, 'Kategori ekleme başarılı ! '+category.name)
+                return redirect('blog_liste')
+            else:
+                messages.success(request, 'Aynı isimde kategori bulunuyor !')
+                return redirect('kategori_ekle')
+        else:
+            messages.error(request, form.errors)
+            return redirect('kategori_ekle')
+        
+
+class BlogEkle(View):
+    def get(self, request):
+        form = BlogForm()
+        return render(request, 'blogapp/blog_ekle.html',{'form':form})
+    
+    def post(self, request):
+        form = BlogForm(request.POST, request.FILES)
+        if form.is_valid():
+            blog = form.save(commit=True)
+            author = Author.objects.get(user=request.user)
+            blog.author = author
+            blog.save()
+            messages.success(request, 'Blog yazınız başarılı şekilde kayıt edildi !')
+            return redirect('blog_liste')
+        else:
+            messages.error(request, form.errors)
+            return redirect('blog_ekle')
+        
