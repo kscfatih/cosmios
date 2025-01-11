@@ -42,7 +42,7 @@ class Register(View):
             user = User.objects.create_user(username=username, first_name = isim, last_name = soyisim, email=email, password=password)
             print(user)
             if user is not None:
-                Author.objects.create(user=user)
+                
                 messages.success(request, 'User başarıyla oluşturuldu!')
                 return redirect('login')
             else:

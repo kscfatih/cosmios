@@ -8,5 +8,6 @@ urlpatterns = [
     path('blog-islemleri', views.blog_islemleri, name='blog_islemleri'),
     path('blog-category/<int:categoryId>', views.blog_category, name='blog_category'),
     path('kategori-ekle',views.KategoriEkle.as_view(), name='kategori_ekle'),
-    path('blog-ekle', views.BlogEkle.as_view(), name='blog_ekle')
+    path('blog-ekle', views.BlogEkle.as_view(), name='blog_ekle'),
+    path('kategori-liste/', views.CategoryView.as_view(),name='kategori-liste')
 ]

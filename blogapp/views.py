@@ -3,7 +3,7 @@ from .models import *
 from django.views import View
 from .forms import *
 from django.contrib import messages
-
+from django.core.paginator import Paginator
 
 # Path'ler üzerinden yönlendirdiğimiz kontrol ediciler/viewlar
 
@@ -129,3 +129,11 @@ class BlogEkle(View):
             messages.error(request, form.errors)
             return redirect('blog_ekle')
         
+class CategoryView(View):
+    def get(self, request):
+        categories = Category.objects.filter(is_active=True)
+        page_number = request.GET.get('page',1)
+        paginator = Paginator(categories, 1)
+        page_obj = paginator.get_page(page_number)
+        print(page_obj)
+        return render(request, 'blogapp/kategori_liste.html', {'page_obj':page_obj})

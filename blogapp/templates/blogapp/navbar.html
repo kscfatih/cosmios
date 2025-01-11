@@ -1,4 +1,4 @@
-{% load custom_filters %}
+
 <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
     <div class="container">
         <a class="navbar-brand" href="#">Blog App</a>
@@ -31,14 +31,12 @@
                     <a href="{%url 'login'%}" class="nav-link">Giriş Yap</a>
                 </li>
                 <li>
-                    <a href="{%url 'register'%}" class="nav-link">Kayıt Ol  {{context1}} {{context2}} </a>
+                    <a href="{%url 'register'%}" class="nav-link">Kayıt Ol </a>
                 </li>
                
                 {% endif %}
                
-                <li>
-                    <a  class="nav-link"> {{user.username|selam}} </a>
-                </li>
+              
             </ul>
         </div>
     </div>
