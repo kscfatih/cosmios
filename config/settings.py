@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions', # oturumu yönetmek için 
     'django.contrib.messages', #uygulama içi n bildirimler için 
     'django.contrib.staticfiles', # static dosyaları yönetmek için
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
