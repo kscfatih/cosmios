@@ -6,7 +6,11 @@ admin.site.site_header='Blog Projesi'
 
 
 admin.site.register(Category)
-admin.site.register(Author)
+
+@admin.register(Author)
+class AuthorAdmin(admin.ModelAdmin):
+    list_display = ['id','user']
+
 @admin.register(Blog)
 class BlogAdmin(admin.ModelAdmin):
     list_display = [
