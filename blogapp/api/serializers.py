@@ -51,11 +51,7 @@ class AuthorSerializer(serializers.Serializer):
 
     
 class BlogSerializer(serializers.ModelSerializer):
-    category = serializers.HyperlinkedRelatedField(
-        view_name='category-detail',
-        many=True,
-        read_only=True
-    )
+    category = CategorySerializer(many=True)
     author = AuthorSerializer()
     class Meta:
         model = Blog

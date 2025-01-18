@@ -6,6 +6,11 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination
+from .pagination import *
+import django_filters.rest_framework
+from rest_framework import filters
+
 
 @api_view(['GET','POST'])
 def category_view(request):
@@ -27,7 +32,7 @@ def category_detail_view(request, pk):
     try:
         category = Category.objects.get(id=pk)
     except:
-        return Response('İlgili id ile bir obje bulunamdı',status=status.HTTP_400_BAD_REQUEST)
+        return Response('İlgili id ile bir obje bulunamdı',status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
         serializer = CategorySerializer(category)      
@@ -46,18 +51,35 @@ def category_detail_view(request, pk):
     
 
 class AuthorsView(APIView):
+   
     def get(self, request):
         authors = Author.objects.all()
         serializer = AuthorSerializer(authors, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    def put(self, request, pk):
+        pass
+
+    def delete(self, request, pk):
+        pass
+
+    def post(self, request):
+        pass
 
 
 # ÖDEV !!! yazar için detay view oluşturulacak => Güncelle, Silme ve detay görüntüleme
 
 
+    
+
+
 class BlogListCreate(ListCreateAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
+    pagination_class = BlogPagination
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title']
+    
 
 class BlogDetailView(RetrieveUpdateDestroyAPIView):
     queryset=Blog.objects.all()
@@ -70,6 +92,7 @@ class CategoryViewSet(ModelViewSet):
 class AuthorViewSet(ModelViewSet):
     queryset=Author.objects.all()
     serializer_class=AuthorSerializer
+    pagination_class = AuthorPagination
 
 
 class BlogViewSet(ModelViewSet):
