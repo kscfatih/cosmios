@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.messages', #uygulama içi n bildirimler için 
     'django.contrib.staticfiles', # static dosyaları yönetmek için
     'rest_framework',
+    'django_filters'
 ]
 
 MIDDLEWARE = [

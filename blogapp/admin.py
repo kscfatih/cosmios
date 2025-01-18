@@ -15,6 +15,7 @@ class AuthorAdmin(admin.ModelAdmin):
 class BlogAdmin(admin.ModelAdmin):
     list_display = [
         'id',
+        'author',
         'title',
         'is_active',
         'blog_population',

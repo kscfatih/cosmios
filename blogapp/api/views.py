@@ -8,8 +8,9 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination
 from .pagination import *
-import django_filters.rest_framework
-from rest_framework import filters
+from django_filters import rest_framework as filters
+from .filter import *
+from rest_framework.permissions import IsAdminUser,IsAuthenticated,IsAuthenticatedOrReadOnly
 
 
 @api_view(['GET','POST'])
@@ -74,11 +75,20 @@ class AuthorsView(APIView):
 
 
 class BlogListCreate(ListCreateAPIView):
-    queryset = Blog.objects.all()
+    # queryset = Blog.objects.filter(is_active=True)
     serializer_class = BlogSerializer
     pagination_class = BlogPagination
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['title']
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_fields  = ('title','blog_population','category')
+
+
+    def get_queryset(self):
+        user = self.request.user
+        queryset = Blog.objects.filter(is_active=True)
+        if user is not None:
+            queryset = Blog.objects.filter(author__user=user)
+        return queryset
+
     
 
 class BlogDetailView(RetrieveUpdateDestroyAPIView):
@@ -88,6 +98,10 @@ class BlogDetailView(RetrieveUpdateDestroyAPIView):
 class CategoryViewSet(ModelViewSet):
     queryset=Category.objects.all()
     serializer_class=CategorySerializer
+    filter_backends = [filters.DjangoFilterBackend]
+    filterset_class = CategoryFilter
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
 
 class AuthorViewSet(ModelViewSet):
     queryset=Author.objects.all()
@@ -98,3 +112,5 @@ class AuthorViewSet(ModelViewSet):
 class BlogViewSet(ModelViewSet):
     queryset=Blog.objects.all()
     serializer_class=BlogHyperSerializer
+    filter_backends = [filters.DjangoFilterBackend]
+    filterset_class = BlogFilter

@@ -8,5 +8,6 @@ urlpatterns = [ # bu isimlendirme özel
     path('admin/', admin.site.urls),
     path('', include('blogapp.urls')),
     # path('api/', include('blogapp.api.urls')),
-    path('accounts/', include('accounts.urls'))
+    path('accounts/', include('accounts.urls')),
+    path('rest-auth/', include('rest_framework.urls'))
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
