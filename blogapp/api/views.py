@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 from .serializers import *
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from blogapp.models import *
 from rest_framework import status
 from rest_framework.views import APIView
@@ -10,10 +10,14 @@ from rest_framework.pagination import PageNumberPagination, LimitOffsetPaginatio
 from .pagination import *
 from django_filters import rest_framework as filters
 from .filter import *
-from rest_framework.permissions import IsAdminUser,IsAuthenticated,IsAuthenticatedOrReadOnly
-
+from rest_framework.permissions import BasePermission, IsAdminUser,IsAuthenticated,IsAuthenticatedOrReadOnly
+from .permissions import *
+from rest_framework.authentication import BasicAuthentication, TokenAuthentication
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 @api_view(['GET','POST'])
+@authentication_classes([BasicAuthentication, JWTAuthentication])
+@permission_classes([IsAuthenticated])
 def category_view(request):
     if request.method == 'GET':
         categories = Category.objects.all()
@@ -29,6 +33,8 @@ def category_view(request):
 
 
 @api_view(['GET','PUT','DELETE'])
+@authentication_classes([BasicAuthentication])
+@permission_classes([IsAuthenticatedOrReadOnly])
 def category_detail_view(request, pk):
     try:
         category = Category.objects.get(id=pk)
@@ -52,6 +58,7 @@ def category_detail_view(request, pk):
     
 
 class AuthorsView(APIView):
+    permission_classes=[IsAdminUser]
    
     def get(self, request):
         authors = Author.objects.all()
@@ -71,7 +78,6 @@ class AuthorsView(APIView):
 # ÖDEV !!! yazar için detay view oluşturulacak => Güncelle, Silme ve detay görüntüleme
 
 
-    
 
 
 class BlogListCreate(ListCreateAPIView):
@@ -80,6 +86,8 @@ class BlogListCreate(ListCreateAPIView):
     pagination_class = BlogPagination
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_fields  = ('title','blog_population','category')
+    permission_classes = [IsAuthenticated]
+
 
 
     def get_queryset(self):
@@ -94,13 +102,14 @@ class BlogListCreate(ListCreateAPIView):
 class BlogDetailView(RetrieveUpdateDestroyAPIView):
     queryset=Blog.objects.all()
     serializer_class = BlogSerializer
+    permission_classes = [IsAuthenticated]
 
 class CategoryViewSet(ModelViewSet):
     queryset=Category.objects.all()
     serializer_class=CategorySerializer
     filter_backends = [filters.DjangoFilterBackend]
     filterset_class = CategoryFilter
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsStaffOrReadOnly]
 
 
 class AuthorViewSet(ModelViewSet):
@@ -114,3 +123,5 @@ class BlogViewSet(ModelViewSet):
     serializer_class=BlogHyperSerializer
     filter_backends = [filters.DjangoFilterBackend]
     filterset_class = BlogFilter
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication,JWTAuthentication]
